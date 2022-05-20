@@ -1,6 +1,6 @@
 # dzas
 Mark Ogden has completed the work I started on decompiling ZAS.COM from Hi-Tech C compiler v3.09.
-Thanks to him, the executable file for CP / M can be compiled using makefile by running the command:
+Thanks to him, the executable file for CP/M can be compiled using makefile by running the command:
 
 make
 
