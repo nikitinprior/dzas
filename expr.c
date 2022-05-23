@@ -26,7 +26,7 @@
  *
  * Early work on the decompilation was done by Andrey Nikitin
  * Completion of the work and porting to work under modern compilers done by Mark Ogden
- * 19-May-2022
+ * 22-May-2022
  */
 #include "zas.h"
 
@@ -90,7 +90,7 @@ prop_t *evalExpr() {
                 break;
             case G_FWD:
             case G_BWD:
-                *iy = *findLocalLabel(yylval.ySym, tokType);
+                *iy = *findLocalLabel(yylval.yNum, tokType);
                 break;
             }
             tokType = yylex();
