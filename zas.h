@@ -26,36 +26,33 @@
  *
  * Early work on the decompilation was done by Andrey Nikitin
  * Completion of the work and porting to work under modern compilers done by Mark Ogden
- * 19-May-2022
+ * 22-May-2022
  */
 #ifndef _ZAS_H
 #define _ZAS_H
-#include "kwd.h"
+
 #include <setjmp.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 #ifndef CPM
 #include <stdbool.h>
-#include <stdint.h>
 #ifndef _MSC_VER
 #define fgets afgets
 char *afgets(char *str, int n, FILE *stream);
 #endif
 #else
-typedef int int16_t;
-typedef char int8_t;
-typedef unsigned char uint8_t;
-typedef unsigned int uint16_t;
-typedef long int32_t;
-typedef unsigned long uint32_t;
 typedef char bool;
 #define true 1
 #define false 0
 #define const
 #define _Noreturn
 #endif
+
+#include "kwd.h"
+
 
 /* definitions to handle floating point for x-assembly*/
 #ifdef CPM
@@ -151,7 +148,7 @@ typedef struct src_ { /* input management structure: file & macro */
 #define srcText u._srcText
 
 typedef struct tmpLab_ {
-    sym_t *tLabel;
+    int16_t tLabel;
     int16_t tLoc;
     sym_t *tPsect;
 } tmpLabel_t;
@@ -236,15 +233,15 @@ sym_t *remSym(register sym_t *pSym);            /* 109 52B7 +-- */
 void addSym(register sym_t *pSym);              /* 110 5366 +-- */
 sym_t *dupSym(register sym_t *pSym);            /* 111 53A1 +-- */
 void initLocalLabels(void);                     /* 112 53E5 +-- */
-void defTmpLabel(sym_t *tLabel);                /* 113 5404 +-- */
-prop_t *findLocalLabel(sym_t *ps, int tokType); /* 114 546A +-- */
+void defTmpLabel(int16_t nLabel);                /* 113 5404 +-- */
+prop_t *findLocalLabel(int16_t nLabel, int tokType); /* 114 546A +-- */
 
 extern prop_t startAddr;             /* 9799 */
 extern char yytext[100];             /* 9b28 */
-extern int curLineno;                /* 9bbe */
+extern int16_t curLineno;                /* 9bbe */
 extern char *curFileName;            /* 9bc0 */
 extern char controls;                /* 9bc5 */
-extern int width;                    /* 9e16 */
+extern int16_t width;                    /* 9e16 */
 extern FILE *crfFp;                  /* 9e18 */
 extern bool i_opt;                   /* 9e38 */
 extern char l_opt;                   /* 9e39 */
